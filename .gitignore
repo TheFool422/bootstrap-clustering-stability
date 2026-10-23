@@ -1,0 +1,9 @@
+/sessions.zip
+/embeddings.zip
+/generated/
+/models/
+/raw_data/
+/.venv/
+__pycache__/
+*.pyc
+/summary.csv

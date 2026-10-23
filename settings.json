@@ -1,0 +1,431 @@
+{
+  "seed": 21,
+  "bootstrap_replicas": 1000,
+  "thresholds": [
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9
+  ],
+  "broad_dimensions": [
+    5,
+    10,
+    15,
+    20,
+    25,
+    30,
+    35,
+    40,
+    45,
+    50,
+    60,
+    80,
+    100
+  ],
+  "broad_cluster_sizes": [
+    5,
+    7,
+    9,
+    11,
+    13,
+    15,
+    17,
+    19,
+    21,
+    30,
+    50,
+    100
+  ],
+  "compact_dimensions": [
+    5,
+    25,
+    50
+  ],
+  "compact_cluster_sizes": [
+    5,
+    13,
+    50
+  ],
+  "dbscan_quantiles": [
+    0.75,
+    0.9,
+    0.95
+  ],
+  "models": {
+    "bigbird": {
+      "repo": "google/bigbird-roberta-base",
+      "revision": "5a145f7852cba9bd431386a58137bf8a29903b90",
+      "local_dir": "models/bigbird-roberta-base"
+    },
+    "bert": {
+      "repo": "google-bert/bert-base-uncased",
+      "revision": "86b5e0934494bd15c9632b12f734a8a67f723594",
+      "local_dir": "models/bert-base-uncased",
+      "files_sha256": {
+        "config.json": "7160e1553ad2ca51d8c1cb066be533db31826e12d173824c1bb0cb1a4f187d20",
+        "model.safetensors": "68d45e234eb4a928074dfd868cead0219ab85354cc53d20e772753c6bb9169d3",
+        "tokenizer.json": "ce64fce797c24f68df90b40a3f74f579b336a493db14bd583fd520ea0d8c9a98",
+        "tokenizer_config.json": "a025160ef0431f1a392f6f050c1310f4c5d9fb6f275932dbccba73c4d214bf10",
+        "vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+      }
+    }
+  },
+  "embedding": {
+    "max_positions": 4096,
+    "token_budget": 16384,
+    "max_batch": 32,
+    "bert_max_batch": 64,
+    "bert_content_tokens": 510,
+    "threads": 6,
+    "gpu_memory_fraction": 0.6
+  },
+  "umap": {
+    "n_neighbors": 15,
+    "min_dist": 0.1,
+    "metric": "euclidean"
+  },
+  "environment": {
+    "python": "3.10.11",
+    "system": "Windows",
+    "tshark": "4.4.6",
+    "packages": {
+      "numpy": "2.2.5",
+      "pandas": "2.2.3",
+      "scipy": "1.15.3",
+      "scikit-learn": "1.6.1",
+      "hdbscan": "0.8.40",
+      "umap-learn": "0.5.7",
+      "numba": "0.61.2",
+      "pynndescent": "0.5.13",
+      "torch": "2.14.0+cu126",
+      "transformers": "4.51.3",
+      "tokenizers": "0.21.1",
+      "sentencepiece": "0.2.0",
+      "huggingface-hub": "0.31.1",
+      "matplotlib": "3.10.3",
+      "safetensors": "0.5.3",
+      "protobuf": "6.30.2"
+    }
+  },
+  "samples": {
+    "unsw_nb15": {
+      "W1": {
+        "original_sample": "first10k",
+        "extraction": {
+          "DATASET": "unsw_nb15",
+          "SAMPLE": "first10k",
+          "PCAP_DIR": "raw_data/UNSW-NB15",
+          "PCAP_FILES": "1.pcap",
+          "LABEL_FILES": "raw_data/UNSW-NB15/UNSW-NB15_1.csv,raw_data/UNSW-NB15/UNSW-NB15_2.csv,raw_data/UNSW-NB15/UNSW-NB15_3.csv,raw_data/UNSW-NB15/UNSW-NB15_4.csv",
+          "TSHARK": "tshark",
+          "N": "10000",
+          "CANDIDATE_MARGIN": "0.2",
+          "IDLE_TIMEOUT": "300",
+          "STOP_BUFFER": "300",
+          "A_CAP_BYTES": "4094",
+          "F_CUT_LEN": "1460",
+          "LABEL_FORMAT": "unsw",
+          "LABEL_TIME_RES": "1",
+          "LABEL_TOL": "1",
+          "LABEL_TZ_OFFSET": "0",
+          "OUT_DIR": "data/unsw_nb15/first10k/01_extract",
+          "TMP_DIR": "data/unsw_nb15/first10k/01_extract/_intermediate",
+          "LOG_DIR": "logs"
+        }
+      },
+      "W2": {
+        "original_sample": "hour2_10k",
+        "extraction": {
+          "DATASET": "unsw_nb15",
+          "SAMPLE": "hour2_10k",
+          "PCAP_DIR": "raw_data",
+          "PCAP_FILES": "_windows/unsw_nb15_hour2_10k_2.pcap, UNSW-NB15/3.pcap, UNSW-NB15/4.pcap",
+          "WINDOW_HOUR": "2",
+          "WINDOW_T0_PCAP": "UNSW-NB15/1.pcap",
+          "WINDOW_SOURCE": "UNSW-NB15/2.pcap",
+          "WINDOW_SLICE_S": "7200",
+          "LABEL_FILES": "raw_data/UNSW-NB15/UNSW-NB15_1.csv,raw_data/UNSW-NB15/UNSW-NB15_2.csv,raw_data/UNSW-NB15/UNSW-NB15_3.csv,raw_data/UNSW-NB15/UNSW-NB15_4.csv",
+          "TSHARK": "tshark",
+          "N": "10000",
+          "CANDIDATE_MARGIN": "0.2",
+          "IDLE_TIMEOUT": "300",
+          "STOP_BUFFER": "300",
+          "A_CAP_BYTES": "4094",
+          "F_CUT_LEN": "1460",
+          "LABEL_FORMAT": "unsw",
+          "LABEL_TIME_RES": "1",
+          "LABEL_TOL": "1",
+          "LABEL_TZ_OFFSET": "0",
+          "OUT_DIR": "data/unsw_nb15/hour2_10k/01_extract",
+          "TMP_DIR": "data/unsw_nb15/hour2_10k/01_extract/_intermediate",
+          "LOG_DIR": "logs"
+        }
+      },
+      "W3": {
+        "original_sample": "hour3_10k",
+        "extraction": {
+          "DATASET": "unsw_nb15",
+          "SAMPLE": "hour3_10k",
+          "PCAP_DIR": "raw_data",
+          "PCAP_FILES": "_windows/unsw_nb15_hour3_10k_4.pcap, UNSW-NB15/5.pcap, UNSW-NB15/6.pcap",
+          "WINDOW_HOUR": "3",
+          "WINDOW_T0_PCAP": "UNSW-NB15/1.pcap",
+          "WINDOW_SOURCE": "UNSW-NB15/4.pcap",
+          "WINDOW_SLICE_S": "7200",
+          "LABEL_FILES": "raw_data/UNSW-NB15/UNSW-NB15_1.csv,raw_data/UNSW-NB15/UNSW-NB15_2.csv,raw_data/UNSW-NB15/UNSW-NB15_3.csv,raw_data/UNSW-NB15/UNSW-NB15_4.csv",
+          "TSHARK": "tshark",
+          "N": "10000",
+          "CANDIDATE_MARGIN": "0.2",
+          "IDLE_TIMEOUT": "300",
+          "STOP_BUFFER": "300",
+          "A_CAP_BYTES": "4094",
+          "F_CUT_LEN": "1460",
+          "LABEL_FORMAT": "unsw",
+          "LABEL_TIME_RES": "1",
+          "LABEL_TOL": "1",
+          "LABEL_TZ_OFFSET": "0",
+          "OUT_DIR": "data/unsw_nb15/hour3_10k/01_extract",
+          "TMP_DIR": "data/unsw_nb15/hour3_10k/01_extract/_intermediate",
+          "LOG_DIR": "logs"
+        }
+      },
+      "W4": {
+        "original_sample": "hour4_10k",
+        "extraction": {
+          "DATASET": "unsw_nb15",
+          "SAMPLE": "hour4_10k",
+          "PCAP_DIR": "raw_data",
+          "PCAP_FILES": "_windows/unsw_nb15_hour4_10k_7.pcap, UNSW-NB15/8.pcap",
+          "WINDOW_HOUR": "4",
+          "WINDOW_T0_PCAP": "UNSW-NB15/1.pcap",
+          "WINDOW_SOURCE": "UNSW-NB15/7.pcap",
+          "WINDOW_SLICE_S": "7200",
+          "LABEL_FILES": "raw_data/UNSW-NB15/UNSW-NB15_1.csv,raw_data/UNSW-NB15/UNSW-NB15_2.csv,raw_data/UNSW-NB15/UNSW-NB15_3.csv,raw_data/UNSW-NB15/UNSW-NB15_4.csv",
+          "TSHARK": "tshark",
+          "N": "10000",
+          "CANDIDATE_MARGIN": "0.2",
+          "IDLE_TIMEOUT": "300",
+          "STOP_BUFFER": "300",
+          "A_CAP_BYTES": "4094",
+          "F_CUT_LEN": "1460",
+          "LABEL_FORMAT": "unsw",
+          "LABEL_TIME_RES": "1",
+          "LABEL_TOL": "1",
+          "LABEL_TZ_OFFSET": "0",
+          "OUT_DIR": "data/unsw_nb15/hour4_10k/01_extract",
+          "TMP_DIR": "data/unsw_nb15/hour4_10k/01_extract/_intermediate",
+          "LOG_DIR": "logs"
+        }
+      }
+    },
+    "cicids2017": {
+      "W1": {
+        "original_sample": "tuesday_first10k",
+        "extraction": {
+          "DATASET": "cicids2017",
+          "SAMPLE": "tuesday_first10k",
+          "PCAP_DIR": "raw_data/CICIDS2017",
+          "PCAP_FILES": "Tuesday-WorkingHours.pcap",
+          "MAX_PACKETS": "10000000",
+          "LABEL_FILES": "raw_data/CICIDS2017/TrafficLabelling/Tuesday-WorkingHours.pcap_ISCX.csv",
+          "TSHARK": "tshark",
+          "N": "10000",
+          "CANDIDATE_MARGIN": "0.1",
+          "IDLE_TIMEOUT": "300",
+          "STOP_BUFFER": "300",
+          "A_CAP_BYTES": "4094",
+          "F_CUT_LEN": "1460",
+          "LABEL_FORMAT": "cicids",
+          "LABEL_TIME_RES": "60",
+          "LABEL_TOL": "2",
+          "LABEL_TZ_OFFSET": "10800",
+          "LABEL_PM_BELOW": "8",
+          "OUT_DIR": "data/cicids2017/tuesday_first10k/01_extract",
+          "TMP_DIR": "data/cicids2017/tuesday_first10k/01_extract/_intermediate",
+          "LOG_DIR": "logs"
+        }
+      },
+      "W2": {
+        "original_sample": "tuesday_hour2_10k",
+        "extraction": {
+          "DATASET": "cicids2017",
+          "SAMPLE": "tuesday_hour2_10k",
+          "PCAP_DIR": "raw_data",
+          "PCAP_FILES": "_windows/cicids2017_tuesday_hour2_10k.pcapng",
+          "WINDOW_HOUR": "2",
+          "WINDOW_T0_PCAP": "CICIDS2017/Tuesday-WorkingHours.pcap",
+          "WINDOW_SOURCE": "CICIDS2017/Tuesday-WorkingHours.pcap",
+          "WINDOW_SLICE_S": "7200",
+          "MAX_PACKETS": "10000000",
+          "LABEL_FILES": "raw_data/CICIDS2017/TrafficLabelling/Tuesday-WorkingHours.pcap_ISCX.csv",
+          "TSHARK": "tshark",
+          "N": "10000",
+          "CANDIDATE_MARGIN": "0.1",
+          "IDLE_TIMEOUT": "300",
+          "STOP_BUFFER": "300",
+          "A_CAP_BYTES": "4094",
+          "F_CUT_LEN": "1460",
+          "LABEL_FORMAT": "cicids",
+          "LABEL_TIME_RES": "60",
+          "LABEL_TOL": "2",
+          "LABEL_TZ_OFFSET": "10800",
+          "LABEL_PM_BELOW": "8",
+          "OUT_DIR": "data/cicids2017/tuesday_hour2_10k/01_extract",
+          "TMP_DIR": "data/cicids2017/tuesday_hour2_10k/01_extract/_intermediate",
+          "LOG_DIR": "logs"
+        }
+      },
+      "W3": {
+        "original_sample": "tuesday_hour3_10k",
+        "extraction": {
+          "DATASET": "cicids2017",
+          "SAMPLE": "tuesday_hour3_10k",
+          "PCAP_DIR": "raw_data",
+          "PCAP_FILES": "_windows/cicids2017_tuesday_hour3_10k.pcapng",
+          "WINDOW_HOUR": "3",
+          "WINDOW_T0_PCAP": "CICIDS2017/Tuesday-WorkingHours.pcap",
+          "WINDOW_SOURCE": "CICIDS2017/Tuesday-WorkingHours.pcap",
+          "WINDOW_SLICE_S": "7200",
+          "MAX_PACKETS": "10000000",
+          "LABEL_FILES": "raw_data/CICIDS2017/TrafficLabelling/Tuesday-WorkingHours.pcap_ISCX.csv",
+          "TSHARK": "tshark",
+          "N": "10000",
+          "CANDIDATE_MARGIN": "0.1",
+          "IDLE_TIMEOUT": "300",
+          "STOP_BUFFER": "300",
+          "A_CAP_BYTES": "4094",
+          "F_CUT_LEN": "1460",
+          "LABEL_FORMAT": "cicids",
+          "LABEL_TIME_RES": "60",
+          "LABEL_TOL": "2",
+          "LABEL_TZ_OFFSET": "10800",
+          "LABEL_PM_BELOW": "8",
+          "OUT_DIR": "data/cicids2017/tuesday_hour3_10k/01_extract",
+          "TMP_DIR": "data/cicids2017/tuesday_hour3_10k/01_extract/_intermediate",
+          "LOG_DIR": "logs"
+        }
+      },
+      "W4": {
+        "original_sample": "tuesday_hour4_10k",
+        "extraction": {
+          "DATASET": "cicids2017",
+          "SAMPLE": "tuesday_hour4_10k",
+          "PCAP_DIR": "raw_data",
+          "PCAP_FILES": "_windows/cicids2017_tuesday_hour4_10k.pcapng",
+          "WINDOW_HOUR": "4",
+          "WINDOW_T0_PCAP": "CICIDS2017/Tuesday-WorkingHours.pcap",
+          "WINDOW_SOURCE": "CICIDS2017/Tuesday-WorkingHours.pcap",
+          "WINDOW_SLICE_S": "7200",
+          "MAX_PACKETS": "10000000",
+          "LABEL_FILES": "raw_data/CICIDS2017/TrafficLabelling/Tuesday-WorkingHours.pcap_ISCX.csv",
+          "TSHARK": "tshark",
+          "N": "10000",
+          "CANDIDATE_MARGIN": "0.1",
+          "IDLE_TIMEOUT": "300",
+          "STOP_BUFFER": "300",
+          "A_CAP_BYTES": "4094",
+          "F_CUT_LEN": "1460",
+          "LABEL_FORMAT": "cicids",
+          "LABEL_TIME_RES": "60",
+          "LABEL_TOL": "2",
+          "LABEL_TZ_OFFSET": "10800",
+          "LABEL_PM_BELOW": "8",
+          "OUT_DIR": "data/cicids2017/tuesday_hour4_10k/01_extract",
+          "TMP_DIR": "data/cicids2017/tuesday_hour4_10k/01_extract/_intermediate",
+          "LOG_DIR": "logs"
+        }
+      }
+    }
+  },
+  "files_sha256": {
+    "sessions.zip:unsw_nb15/W1.csv": "a8f551e94caa295ceb213ab244bee58a4cbdb87503a93c1bedcca53e68a15819",
+    "sessions.zip:unsw_nb15/W2.csv": "5436b7f9ac7f632b602a697afd211d8e883dbdc04c58734dc86516a1f1901df7",
+    "sessions.zip:unsw_nb15/W3.csv": "1b5b5c9536079321308b476d82694629b66a31cf69ded8b8e4d45eaf81bfb622",
+    "sessions.zip:unsw_nb15/W4.csv": "e18c2abf5d865980c06882e4b27a8e70ba7fd8abfbf18ce6e236d819f59970d3",
+    "sessions.zip:cicids2017/W1.csv": "7ecbc749a940795567dcc28990cdcc386add316a72bdeebed8c9073e7b2e3d3b",
+    "sessions.zip:cicids2017/W2.csv": "713e28bdc8bb191a40d7e8c128ff17d800269bdcd410bd11220a42b26162acb9",
+    "sessions.zip:cicids2017/W3.csv": "84d62fccd581309c2f55bee5ba044b70bc58cfaaa23f03514379aa90f59f5967",
+    "sessions.zip:cicids2017/W4.csv": "2ae40ddea65379d0b384f8ea0c35ca4f9ea6d1541780d20328baf4ce7d4d74b6",
+    "embeddings.zip:unsw_nb15/W1/H.npy": "109fce3b973f5af1c552093d8a48f1d39a044e0830647f7a58c3aaaf75bb8f8e",
+    "embeddings.zip:unsw_nb15/W1/bigbird/F.npy": "91b479b541f7559f0649f279d0dae7cce9b4c897c8a88679ede4a0cb1f0d23d1",
+    "embeddings.zip:unsw_nb15/W1/bigbird/index_F.csv": "4a0bcb94b2dbe8bbbaa8d300aaecbe8c33178a6e99fe374f404e284378f8eb26",
+    "embeddings.zip:unsw_nb15/W1/bert/F.npy": "d13dd61d13a6bce4b6541a79d06f76d0712edad6fdce5276e435793e7202bd34",
+    "embeddings.zip:unsw_nb15/W1/bigbird/A.npy": "9d52322559279c9e032f2568dd7b3191f12a6f4b2feb2acbefe9ac4d45854127",
+    "embeddings.zip:unsw_nb15/W1/bigbird/index_A.csv": "ca06c92ac43470152b4ee1789b8ac3e8da9410b56b846c8d23b1b79a637382ce",
+    "embeddings.zip:unsw_nb15/W1/bert/A.npy": "8f717ead73d1ba4a518e634b8ac5e595d1726c6552544a72d108dc549332ac19",
+    "embeddings.zip:unsw_nb15/W2/H.npy": "87c24d1c6be5ec9a893c93f79522c1a9e25d4687b9a45ce73faec944ec9c4f10",
+    "embeddings.zip:unsw_nb15/W2/bigbird/F.npy": "45ba276aa842545165e6ce870ab5ec188f4e2999caeb823045fbf443cc6387c4",
+    "embeddings.zip:unsw_nb15/W2/bigbird/index_F.csv": "2f248e3a8c4cc2933aa56397ac36309baf59cefd2408b76adf68bdd69183c74f",
+    "embeddings.zip:unsw_nb15/W2/bigbird/A.npy": "18a6ec43742b88e3cfd42263771535851900b8d18540d9e00666fc12066a1c5d",
+    "embeddings.zip:unsw_nb15/W2/bigbird/index_A.csv": "623558adb48bfa4797721565ef36c80fe9741f8ac8dbadf11c21d6c32c327976",
+    "embeddings.zip:unsw_nb15/W3/H.npy": "10e0a17ff4f5605500145a86d6a2535c6e28bd6ebc206efa8b883e23a048125e",
+    "embeddings.zip:unsw_nb15/W3/bigbird/F.npy": "909f00a89f2819e923d1272bb7beab171dd9e40853b3dd4716fa52bd67cb6e01",
+    "embeddings.zip:unsw_nb15/W3/bigbird/index_F.csv": "6272d055125ece676bb6bf79427c554cd19d784714b519988927a47e1cc7a28f",
+    "embeddings.zip:unsw_nb15/W3/bigbird/A.npy": "d4675a43763bad1c40d2f9e79849fb274e2d8afb09771ff2f3245fc22629f789",
+    "embeddings.zip:unsw_nb15/W3/bigbird/index_A.csv": "e621ab944d5f4719d5076fb3df6a1b30187f7d8e3fbae0a74d807f72df365122",
+    "embeddings.zip:unsw_nb15/W4/H.npy": "f9a109ff8189d8a00a549297a35895ddd390661731b6764c23b9a59594ca82e2",
+    "embeddings.zip:unsw_nb15/W4/bigbird/F.npy": "4625c94d4b5bab220b7df69cbe54fdae8e26bd28b4774d732ebadf6fe1d93c49",
+    "embeddings.zip:unsw_nb15/W4/bigbird/index_F.csv": "069390515f3e42af5723a10c3f8aef687c9f5783ee46e2708934faf68d4adf0c",
+    "embeddings.zip:unsw_nb15/W4/bigbird/A.npy": "6dcc2a990077734b3360116e44de7bce6e2a2d777fa74ad3af4852129d3dda25",
+    "embeddings.zip:unsw_nb15/W4/bigbird/index_A.csv": "8932312b6e6642969276d8f9a2655d4a0690e671b9c15255cb9b51f8acb8c559",
+    "embeddings.zip:cicids2017/W1/H.npy": "69ed3a0f98716f7050ecbd0030b438f290ab207e502892de28704d0924017f56",
+    "embeddings.zip:cicids2017/W1/bigbird/F.npy": "efc7427a5e42b282735368653ed48dd2476cc98fee11ff7d59c5e5e8223463b7",
+    "embeddings.zip:cicids2017/W1/bigbird/index_F.csv": "45914da34b9faffbe66aa15b0c4e7fbfc0e64c3ad158a3890477f90aa040cd64",
+    "embeddings.zip:cicids2017/W1/bert/F.npy": "2c3d1ab547bedd39b3d1c4fe10e8f88b813b42ff6dc5ca5033143013a327229e",
+    "embeddings.zip:cicids2017/W1/bigbird/A.npy": "c16416b31d9fd65f00cac8a57c8d42af75c096d6c59d95c05b7ea6b002307570",
+    "embeddings.zip:cicids2017/W1/bigbird/index_A.csv": "6a7c8fd06fd9668b92a565d8f479350b47159b50d40a228fe290cea8f9bf6be0",
+    "embeddings.zip:cicids2017/W1/bert/A.npy": "b4e48f02d7711a43a6082430f6d6b04df73b5746a0cca4910f14993ee5b1ae29",
+    "embeddings.zip:cicids2017/W2/H.npy": "68ae82f721ba7de6ee06f619da4c2c0eec805d43adcefb53d50b5a08ba10bb2e",
+    "embeddings.zip:cicids2017/W2/bigbird/F.npy": "dabcb9ccef7b1cbb42b9cb2bd3762777bff6642758d8fad10ed03f11edceda13",
+    "embeddings.zip:cicids2017/W2/bigbird/index_F.csv": "ace6ff89f418c47a62c0768d9a0ce3d55dc6ab9856acc2414a822705718d54f9",
+    "embeddings.zip:cicids2017/W2/bigbird/A.npy": "d67e23c375cb21c60eb9fa8cd31166c0c156e91926118674056bca99f86f8555",
+    "embeddings.zip:cicids2017/W2/bigbird/index_A.csv": "680ca74a25be6dc22a45574a967d0782339efbf4064e9d7911ecd89686af6745",
+    "embeddings.zip:cicids2017/W3/H.npy": "3f7f99963fdb7c535e4553528d1e9bd6737e55f8d286d151c9956df41c01e60e",
+    "embeddings.zip:cicids2017/W3/bigbird/F.npy": "545707f14e0c28122a7663c27fa2e4abbf6823a361b93153eeb16a02988c88d7",
+    "embeddings.zip:cicids2017/W3/bigbird/index_F.csv": "64ac7b04fa92c5f964d993ffd3eaec3f1f8a39a2522394381c619155a4ca8e63",
+    "embeddings.zip:cicids2017/W3/bigbird/A.npy": "849aed39f11d5dadd69b210315b68ecb1cd86020546db00dcab26edf894f768a",
+    "embeddings.zip:cicids2017/W3/bigbird/index_A.csv": "3238d1db214319c4993aaf5feeb126c8b68207d16e34ba5a7090510893ac37dd",
+    "embeddings.zip:cicids2017/W4/H.npy": "bf59593632f4b643599696ac51636b41dab7282f65a2827c8a90401cf804de4f",
+    "embeddings.zip:cicids2017/W4/bigbird/F.npy": "05b658f0c3d7f4744460ab74ef41fedf14a585f76fe88bd98db0a0b52061dd88",
+    "embeddings.zip:cicids2017/W4/bigbird/index_F.csv": "bc88a14efcde2b670af7c10a9f41286db637ce78e97f6c09fa59095e4926e647",
+    "embeddings.zip:cicids2017/W4/bigbird/A.npy": "fa2d2052f18d611feb5aa837a1e31d6ec21d6d7c065d1f6cf3e24d9389405456",
+    "embeddings.zip:cicids2017/W4/bigbird/index_A.csv": "a47cbdd34645e092f03affd0a8e00bb15b0d71909330c9d44bbbff4d9b610301",
+    "results.csv": "58361f0f94821a28fbf5d8c2bcfc9bf8380331ca97241acf75861a9f6403750e"
+  },
+  "recorded_embedding_seconds": {
+    "unsw_nb15": {
+      "W2": {
+        "F": 68,
+        "A": 356
+      },
+      "W3": {
+        "F": 59,
+        "A": 335
+      },
+      "W4": {
+        "F": 64,
+        "A": 345
+      }
+    },
+    "cicids2017": {
+      "W1": {
+        "F": 130,
+        "A": 542
+      },
+      "W2": {
+        "F": 118,
+        "A": 535
+      },
+      "W3": {
+        "F": 129,
+        "A": 586
+      },
+      "W4": {
+        "F": 108,
+        "A": 598
+      }
+    }
+  },
+  "recorded_timing_note": "Complete BigBird passes; initialization excluded. UNSW W1 excluded because it resumed cached chunks. CICIDS W4 uses the earlier complete pass."
+}
